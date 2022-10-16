@@ -1,22 +1,7 @@
-from screeninfo import get_monitors
 import pygame
 import tkinter as tk
 import time
-#for pygame window
-def get_pygame_window_resolution(screen) -> [int, int]:
-    return screen.get_size()
-
-#for tkinter window
-def get_tkinter_window_resolution(window) -> [int, int]:
-    resolution = [window.winfo_screenwidth(),
-                    window.winfo_screenheight()]
-    return resolution
-
-#for monitor
-def get_monitor_resolution(screen_number: int = 0) -> [int, int]:
-    #https://stackoverflow.com/questions/3129322/how-do-i-get-monitor-resolution-in-python
-    monitor_info = get_monitors()[screen_number]
-    return monitor_info.width, monitor_info.height
+from helper import *
 
 class gui:
     def __init__(self, 
@@ -138,20 +123,12 @@ class gui:
             self.gui_types.append('text')
             self.gui_additionals.append([visible, text_color, text_size, text_font])
 
-
-def tests():
-    pygame.init()
-    screen = pygame.display.set_mode([500, 500])
-    print(f"get_pygame_window_resolution:{get_pygame_window_resolution(screen)}")
-    print(f"get_monitor_resolution:{get_monitor_resolution(0)}")
-    pygame.quit()
-    window_tkinter = gui(width=1280, height=720, window_type='tkinter', warnings=False, window_title="test_tkinter")
-    #while True:
-    window_tkinter.update()
-    window_pygame = gui(width=1280, height=720, window_type='pygame', warnings=False, window_title="test_pygame")
-    window_pygame.update()
-    time.sleep(5)
-    pygame.quit()
+    def close(self):
+        if self.window_type == 'tkinter':
+            self.window.destroy()
+        elif self.window_type == 'pygame':
+            pygame.display.quit()
 
 if __name__ == "__main__":
+    from tests import tests
     tests()
