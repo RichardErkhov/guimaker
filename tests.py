@@ -37,6 +37,22 @@ class Test(unittest.TestCase):
         real_monitor_resolution = (1920, 1080)
         self.assertEqual(get_monitor_resolution(), real_monitor_resolution)
 
+    def test_gui_tkinter_create_window(self):
+        target_resolution = [1280, 720]
+        window_tkinter = gui(width=target_resolution[0], height=target_resolution[1], window_type='tkinter',
+        warnings=False, window_title='test_tkinter')
+        window_tkinter.update()
+        self.assertEqual(window_tkinter.get_window_resolution(), target_resolution)
+        window_tkinter.close()
+    
+    def test_gui_pygame_create_window(self):
+        target_resolution = [1280, 720]
+        window_pygame = gui(width=target_resolution[0], height=target_resolution[1], window_type='pygame',
+        warnings = False, window_title='test_pygame')
+        self.assertEqual(window_pygame.get_window_resolution(), target_resolution)
+        window_pygame.close()
+
+
     #def test_tkinter_create_window(self):
     #    window_tkinter = gui(width=1280, height=720, window_type='tkinter', warnings=False, window_title="test_tkinter")
 

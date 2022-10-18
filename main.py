@@ -102,9 +102,9 @@ class gui:
         if self.window_type == "pygame":
             self.create_shape(shape_type = "rectangle", visible = True, x1 = x1, y1 = y1, x2 = x2, y2 = y2, color = color_outside)
             self.create_shape(shape_type = "rectangle", visible = True, x1 = x1+borders_x1, y1 = y1 + borders_y1, x2 = x2 - borders_x2, y2 = y2-borders_y2,
-            color = color_outside)
+            color = color_inside)
             xx,yy = self.get_coords(x1, y1, x2, y2, text_position, text, text_size, text_font)
-            self.create_text(visible = True, x = xx, y = yy) #TODO finish the text function
+            self.create_text(visible = True, x = xx, y = yy, text_color=text_color, text_size=text_size, text_font=text_font) #TODO finish the text function
     def get_coords(self, x1, y1, x2, y2, text_position, text, text_size, text_font):
         pass
     def create_shape(self, shape_type = "rectangle", visible = True, x1=0, y1=0, x2=0,y2=0, color = '#000000'):
@@ -117,11 +117,27 @@ class gui:
 
     def create_text(self, visible = True, x = 0, y = 0, text_color = "#000000", text_size=10, text_font='Arial'):
         if self.window_type == "tkinter":
-            pass
+            self.gui_coordinates.append([x,y])
+            self.gui_types.append('text')
+            self.gui_additionals.append([visible, text_color, text_size, text_font])
         elif self.window_type == "pygame":
             self.gui_coordinates.append([x, y])
             self.gui_types.append('text')
             self.gui_additionals.append([visible, text_color, text_size, text_font])
+
+    def draw(self):
+        if self.window_type == 'tkinter':
+            #what should I do here?
+            #TODO find what should I do for tkinter
+            pass
+        if self.window_type == 'pygame':
+            for i in self.gui_types:
+                #TODO find out how to draw things in pygame
+                if i == 'text':
+                    pass
+                elif i == 'rectangle':
+                    #is it screen.blit? find how to make it
+                    pass
 
     def close(self):
         if self.window_type == 'tkinter':
